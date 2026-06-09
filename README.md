@@ -9,6 +9,7 @@ options they can book with each eligible clinician.
 - `SPEC_TASK1.md`, `SPEC_TASK2.md`, `SPEC_TASK3.md` - the per-task breakdowns of requirements and business logic, developed in order for easier verification / readability.
 - `SPEC_MERGED.md` - the consolidated, final implementation
 - `getAssessmentSlotsForPatient()` - entry point
+- Tests live in `src/scheduling/*.test.ts`, colocated with the modules they cover (plus `getAssessmentSlotsForPatient.test.ts` for end-to-end coverage of the entry point)
 
 ## Assumptions
 

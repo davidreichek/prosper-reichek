@@ -1,0 +1,28 @@
+{
+  "name": "prosper-health-take-home-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx ts-node src/index.ts",
+    "compile": "npx tsc",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "29.5.14",
+    "@types/node": "22.14.1",
+    "eslint": "9.25.1",
+    "eslint-config-prettier": "10.1.2",
+    "eslint-plugin-prettier": "5.2.6",
+    "globals": "16.0.0",
+    "jest": "29.7.0",
+    "prettier": "3.5.3",
+    "ts-jest": "29.3.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.0"
+  }
+}

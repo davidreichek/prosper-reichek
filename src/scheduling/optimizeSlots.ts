@@ -1,6 +1,6 @@
-// Filter slot start times down to the largest set of non-overlapping
-// appointments of the given duration. Greedy by earliest end time, which is
-// optimal for fixed-duration intervals.
+// Filter slot start times down to the largest non-overlapping set of the given
+// duration -- i.e. the most appointments that can fit in a day. Greedy by
+// earliest end time, which is optimal for fixed-duration intervals.
 export function maximizeNonOverlappingSlots(
   dates: Date[],
   durationMinutes: number,

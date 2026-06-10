@@ -68,9 +68,9 @@ export function buildAssessmentPairs(
   return pairs;
 }
 
-// Reduce a clinician's slots to the largest non-overlapping set before pairing,
-// so we never offer two times that can't both be booked. Assumes fixed-duration
-// slots.
+// When availability is listed at fine intervals, many start times overlap as
+// 90-minute windows. Keep the largest non-overlapping subset so the day holds
+// as many bookable appointments as possible (throughput). Fixed-duration only.
 function optimizeClinicianSlots(
   slots: AvailableAppointmentSlot[],
   durationMinutes: number,
@@ -85,7 +85,7 @@ function optimizeClinicianSlots(
 }
 
 // For a patient, return each eligible clinician's bookable assessment options,
-// respecting slot overlap and the clinician's daily/weekly capacity.
+// respecting daily throughput optimization and the clinician's capacity caps.
 export function getAssessmentSlotsForPatient(
   patient: Patient,
   clinicians: Clinician[],
@@ -95,8 +95,8 @@ export function getAssessmentSlotsForPatient(
     .map((clinician) => {
       const capacityCounts = buildCapacityCounts(clinician.appointments);
 
-      // Drop slots on days/weeks already at capacity, then drop overlapping
-      // slots from what remains.
+      // Drop slots on days/weeks already at capacity, then reduce what remains
+      // to a maximum non-overlapping set (most bookable appointments per day).
       const validSlots = clinician.availableSlots.filter((slot) =>
         slotHasCapacity(slot.date, capacityCounts, clinician),
       );
@@ -105,7 +105,7 @@ export function getAssessmentSlotsForPatient(
         ASSESSMENT_SESSION_MINUTES,
       );
 
-      // Build pairs, then drop any that would push the week over its cap.
+      // Build pairs, then drop any whose two sessions would exceed the weekly cap.
       const pairs = buildAssessmentPairs(bookableSlots).filter((pair) =>
         pairHasCapacity(
           new Date(pair.session1.date),
